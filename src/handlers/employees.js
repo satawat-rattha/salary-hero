@@ -19,20 +19,6 @@ const updateSchema = Joi.object({
     salary: Joi.number().required(),
 })
 
-const importSchema = Joi.object({
-    companyId: Joi.number().required(),
-    data: Joi.array().items(
-        Joi.object({
-            citizenId: Joi.string().required(),
-            firstname: Joi.string().required(),
-            lastname: Joi.string().required(),
-            password: Joi.string().required(),
-            companyId: Joi.number().required(),
-            salary: Joi.number().required(),
-        })
-    ).required()
-})
-
 /**
  * 
  * @param {import('express').Request} req 
@@ -134,6 +120,19 @@ exports.delete = async (req, res) => {
         }
     }
 }
+
+const importSchema = Joi.object({
+    companyId: Joi.number().required(),
+    data: Joi.array().items(
+        Joi.object({
+            citizenId: Joi.string().required(),
+            firstname: Joi.string().required(),
+            lastname: Joi.string().required(),
+            password: Joi.string().required(),
+            salary: Joi.number().required(),
+        })
+    ).required()
+})
 
 /**
  * 
