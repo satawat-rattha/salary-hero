@@ -1,6 +1,7 @@
 const bcrypt = require('bcrypt')
+const roles = require('./roles')
 
-module.exports = ({ id = null, username, password, role }) => {
+module.exports = ({ id = null, username, password }) => {
     if (!username) {
         throw new 'username is require'
     }
@@ -9,26 +10,10 @@ module.exports = ({ id = null, username, password, role }) => {
         throw new 'password is require'
     }
 
-    if (!role) {
-        throw new 'role is require'
-    }
-
     return {
         id: id ? Number(id) : id,
         username,
         password,
-        role: Number(role),
-        isRole(role) {
-            return this.role === role
-        },
-        setRole(role) {
-            this.role = role
-        },
-        setPassword(password) {
-            this.password = bcrypt.hashSync(password, 10)
-        },
-        comparePassword(password) {
-            return bcrypt.compareSync(password, this.password)
-        }
+        role: roles.salaryHero
     }
 }

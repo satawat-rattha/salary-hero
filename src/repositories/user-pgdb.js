@@ -1,29 +1,7 @@
-const { db } = require('../libs/pgdb')
-const { DataTypes, } = require('sequelize')
 const model = require('../models/users')
-
-const Schema = db.define('Admin', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-    },
-    username: {
-        type: DataTypes.STRING,
-    },
-    password: {
-        type: DataTypes.STRING,
-    },
-    role: {
-        type: DataTypes.INTEGER,
-    }
-}, {
-    tableName: 'users',
-    timestamps: true,
-
-})
+const Schema = require('../schemas/users')
 
 module.exports = {
-    Schema,
     async create(data = model()) {
         const result = await Schema.create(data)
         return model(result.get())
@@ -38,6 +16,18 @@ module.exports = {
     },
     async get(id) {
         const result = await Schema.findByPk(id)
+        if (!result) {
+            return null
+        }
+
+        return model(result.get())
+    },
+    async getByRole(id, role) {
+        const result = await Schema.findOne({
+            where: {
+                id, role,
+            }
+        })
         if (!result) {
             return null
         }

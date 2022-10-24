@@ -1,34 +1,8 @@
-const { db } = require('../libs/pgdb')
-const { DataTypes, Op } = require('sequelize')
+const { Op } = require('sequelize')
 const model = require('../models/requests')
-
-const Schema = db.define('Employee', {
-    id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-    },
-    employeeId: {
-        type: DataTypes.INTEGER,
-    },
-    amount: {
-        type: DataTypes.NUMBER,
-    },
-    requestedDate: {
-        type: DataTypes.DATE,
-    }
-}, {
-    tableName: 'requests',
-    timestamps: true,
-    indexes: [
-        {
-            unique: true,
-            fields: ['employeeId', 'requestedDate']
-        }
-    ]
-})
+const Schema = require('../schemas/requests')
 
 module.exports = {
-    Schema,
     async create(data = model()) {
         const result = await Schema.create(data)
 

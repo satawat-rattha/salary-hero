@@ -1,6 +1,6 @@
 module.exports = ({ id = null, employeeId, companyId, requestedDate, amount }) => {
     if (!employeeId) {
-        throw new 'companyId is require'
+        throw new 'employeeId is require'
     }
 
     if (!companyId) {

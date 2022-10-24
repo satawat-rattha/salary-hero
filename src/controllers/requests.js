@@ -3,26 +3,16 @@ const repo = require('../repositories/request-pgdb')
 const employeeRepo = require('../repositories/employee-pgdb')
 const dayjs = require('dayjs')
 
-const createInput = ({ employeeId, companyId, amount }) => {
+const createInput = ({ employeeId, amount }) => {
     return {
         employeeId: Number(employeeId),
-        companyId: Number(companyId),
-        amount: Number(amount),
-    }
-}
-
-const updateInput = ({ id, employeeId, companyId, amount }) => {
-    return {
-        id: Number(id),
-        employeeId: Number(employeeId),
-        companyId: Number(companyId),
         amount: Number(amount),
     }
 }
 
 module.exports = {
     async create(input = createInput()) {
-        const employee = await employeeRepo.get(input.companyId)
+        const employee = await employeeRepo.get(input.employeeId)
         if (!employee) {
             throw errors.employeeNotFound
         }
