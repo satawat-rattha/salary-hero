@@ -1,5 +1,10 @@
+const { db } = require('../config')
 const { Sequelize } = require('sequelize');
 
+const dsn = `postgres://${db.postgres.user}:${db.postgres.pass}@${db.postgres.server}:${db.postgres.port}/${db.postgres.dbname}`
+
+console.log(dsn);
+
 module.exports = {
-    db: new Sequelize('postgres://postgres:example@localhost:5432/salary-hero') // Example for postgres      ,
+    db: new Sequelize(dsn)
 }

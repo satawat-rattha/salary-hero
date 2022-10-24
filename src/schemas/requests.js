@@ -1,5 +1,5 @@
 const { db } = require('../libs/pgdb')
-const { DataTypes } = require('sequelize')
+const { DataTypes, NOW } = require('sequelize')
 
 module.exports = db.define('Employee', {
     id: {
@@ -9,20 +9,22 @@ module.exports = db.define('Employee', {
     },
     employeeId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
     amount: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.DOUBLE,
+        defaultValue: 0,
     },
     requestedDate: {
         type: DataTypes.DATE,
+        defaultValue: NOW,
     }
 }, {
     tableName: 'requests',
-    timestamps: true,
+    timestamps: false,
     indexes: [
         {
-            unique: true,
-            fields: ['employeeId', 'requestedDate']
+            fields: ['employeeId', 'requestedDate',]
         }
     ]
 })

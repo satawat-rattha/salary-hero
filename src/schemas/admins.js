@@ -9,9 +9,11 @@ module.exports = db.define('Admin', {
     },
     userId: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     companyId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     }
 }, {
     tableName: 'admins',

@@ -8,19 +8,24 @@ module.exports = db.define('Employee', {
     },
     firstname: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     lastname: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     userId: {
         type: DataTypes.INTEGER,
+        allowNull: false,
     },
     salary: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.DOUBLE,
+        defaultValue: 0,
     },
     companyId: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        allowNull: false,
     }
 }, {
     tableName: 'employees',

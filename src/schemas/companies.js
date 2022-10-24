@@ -9,6 +9,7 @@ module.exports = db.define('Company', {
     },
     name: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
 }, {
     tableName: 'companies',
