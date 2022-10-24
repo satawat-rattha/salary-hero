@@ -4,6 +4,9 @@ const companies = require('./handlers/companies')
 const employees = require('./handlers/employees')
 const admins = require('./handlers/admins')
 const requests = require('./handlers/requests')
+const auth = require('./handlers/auth')
+
+router.post('/login', auth.login)
 
 router.get('/companies/:id', companies.get)
 router.post('/companies/create', companies.create)

@@ -2,6 +2,7 @@ exports.employeeNotFound = { error: { message: 'Employee not found.' } }
 exports.isNotAvailableRequest = { error: { message: 'Request amount is over 50% of salary' } }
 exports.adminNotFound = { error: { message: "Admin not found" } }
 exports.userNotFound = { error: { message: "User not found" } }
+exports.authenticationFail = { error: { message: "Authentication Fail." } }
 exports.cannotUpdateAdmin = { error: { message: "Cannot update admin" } }
 exports.cannotDeleteAdmin = { error: { message: "Cannot delete admin" } }
 exports.companyNotFound = { error: { message: "Company not found" } }

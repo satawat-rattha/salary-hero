@@ -40,5 +40,18 @@ module.exports = {
             return false
         }
         return true
+    },
+    async getByUsername(username) {
+        const result = await Schema.findOne({
+            where: {
+                username,
+            }
+        })
+
+        if (!result) {
+            return null
+        }
+
+        return model(result.get())
     }
 }
