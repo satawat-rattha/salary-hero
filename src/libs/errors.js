@@ -1,0 +1,11 @@
+exports.employeeNotFound = { error: { message: 'Employee not found.' } }
+exports.isNotAvailableRequest = { error: { message: 'Request amount is over 50% of salary' } }
+exports.adminNotFound = { error: { message: "Admin not found" } }
+exports.cannotUpdateAdmin = { error: { message: "Cannot update admin" } }
+exports.cannotDeleteAdmin = { error: { message: "Cannot delete admin" } }
+exports.companyNotFound = { error: { message: "Company not found" } }
+exports.cannotUpdateCompany = { error: { message: "Cannot update company" } }
+exports.cannotDeleteCompany = { error: { message: "Cannot delete company" } }
+exports.cannotUpdateEmployee = { error: { message: "Cannot update employee" } }
+exports.cannotDeleteEmployee = { error: { message: "Cannot delete employee" } }
+exports.cannotImportEmployees = { error: { message: "Cannot import employees" } }
