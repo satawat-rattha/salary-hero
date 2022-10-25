@@ -1,5 +1,8 @@
+const jwt = require('jsonwebtoken')
 const Joi = require("joi");
 const auth = require('../controllers/auth')
+const passport = require('../libs/passport')
+const config = require('../config')
 
 const loginSchema = Joi.object({
     username: Joi.string().required(),
@@ -12,21 +15,41 @@ const loginSchema = Joi.object({
  * @param {import('express').Response} res 
  */
 exports.login = async (req, res) => {
-    try {
-        const { error } = loginSchema.validate(req.body)
-        if (error && error.details.length > 0) {
-            throw { error: error.details[0] }
-        }
+    passport.authenticate('login', async (err, user, info) => {
+        try {
+            if (err || !user) {
+                const error = new Error('An error occured.')
+                console.log(err)
 
-        const result = await auth.login(req.body.username, req.body.password)
+                if (err === null) {
+                    res.status(401).json({ message: 'invalid username or password.' })
+                }
+                return nextTick(error)
+            }
 
-        res.json({ result })
-    } catch (error) {
-        console.error(error)
-        if (error.error) {
-            res.status(400).json(error)
-        } else {
-            res.status(500).json({ error })
+            req.login(user, { session: false }, async (error) => {
+                if (error) { return next(error) }
+
+                const body = { id: user.id, username: user.username }
+                const token = jwt.sign({ user: body }, config.jwt.secret, {
+                    algorithm: 'HS256',
+                    expiresIn: config.jwt.accessExpire,
+                })
+
+                const refreshToken = jwt.sign({ user: body }, config.jwt.secret, {
+                    algorithm: 'HS256',
+                    expiresIn: config.jwt.refreshExpire,
+                })
+
+                const response = { token, refreshToken, user, id: user.id }
+                res.json(response)
+            })
+
+
+
+        } catch (error) {
+            console.error(error)
+            return next(error)
         }
-    }
+    })(req,res,next)
 }

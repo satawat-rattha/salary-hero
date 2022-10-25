@@ -5,8 +5,7 @@ const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
 const userRepo = require('../repositories/user-pgdb')
 const passwords = require('../libs/passwords')
-
-const jwtKey = 'secret'
+const {jwt} = require('../config')
 
 passport.use('login',new localStrategy({
     usernameField:'username',
@@ -29,7 +28,7 @@ passport.use('login',new localStrategy({
 }))
 
 passport.use(new JWTStrategy({
-    secretOrKey:jwtKey,
+    secretOrKey:jwt.secret,
     jwtFromRequest:ExtractJWT.fromAuthHeaderAsBearerToken()
 },async (token,done) => {
     try {
