@@ -23,4 +23,13 @@ module.exports = db.define('Admin', {
 }, {
     tableName: 'users',
     timestamps: false,
+    indexes: [
+        { fields: 'id' },
+        {
+            fields: ['username']
+        },
+        {
+            fields: ['id', 'role']
+        },
+    ]
 })

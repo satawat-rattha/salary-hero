@@ -14,4 +14,7 @@ module.exports = db.define('Company', {
 }, {
     tableName: 'companies',
     timestamps: false,
+    indexes: [
+        { fields: 'id' },
+    ]
 })
