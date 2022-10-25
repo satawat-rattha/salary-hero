@@ -23,7 +23,6 @@ module.exports = db.define('Employee', {
     tableName: 'requests',
     timestamps: false,
     indexes: [
-        { fields: 'id' },
         {
             fields: ['employeeId', 'requestedDate']
         }

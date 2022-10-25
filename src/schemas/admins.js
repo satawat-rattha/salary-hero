@@ -18,7 +18,4 @@ module.exports = db.define('Admin', {
 }, {
     tableName: 'admins',
     timestamps: false,
-    indexes: [
-        { fields: 'id' },
-    ]
 })
