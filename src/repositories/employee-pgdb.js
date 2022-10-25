@@ -60,6 +60,25 @@ module.exports = {
             salary: employee.getDataValue('salary')
         })
     },
+    async getByUserId(userId) {
+        const [employee, user] = await Promise.all([
+            Schema.findOne({ where: { userId } }),
+            userSchema.findByPk(userId)
+        ])
+        if (!employee || !user) {
+            return null
+        }
+
+        return model({
+            id: employee.getDataValue('id'),
+            firstname: employee.getDataValue('firstname'),
+            lastname: employee.getDataValue('lastname'),
+            username: user.getDataValue('username'),
+            password: user.getDataValue('password'),
+            companyId: employee.getDataValue('companyId'),
+            salary: employee.getDataValue('salary')
+        })
+    },
     async get(id) {
         const employee = await Schema.findByPk(id)
         if (!employee) {

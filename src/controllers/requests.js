@@ -3,16 +3,16 @@ const repo = require('../repositories/request-pgdb')
 const employeeRepo = require('../repositories/employee-pgdb')
 const dayjs = require('dayjs')
 
-const createInput = ({ employeeId, amount }) => {
+const createInput = ({ userId, amount }) => {
     return {
-        employeeId: Number(employeeId),
+        userId: Number(userId),
         amount: Number(amount),
     }
 }
 
 module.exports = {
     async create(input = createInput()) {
-        const employee = await employeeRepo.get(input.employeeId)
+        const employee = await employeeRepo.getByUserId(input.userId)
         if (!employee) {
             throw errors.employeeNotFound
         }
@@ -20,7 +20,7 @@ module.exports = {
         const startDate = dayjs().startOf('M').toDate()
         const now = new Date()
 
-        const total = await repo.sumAmountRequest(input.employeeId, startDate, now)
+        const total = await repo.sumAmountRequest(employee.id, startDate, now)
         if (!employee.isAvailableRequest(total + input.amount)) {
             throw errors.isNotAvailableRequest
         }

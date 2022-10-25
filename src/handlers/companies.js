@@ -27,7 +27,9 @@ exports.create = async (req, res) => {
 
         res.json({ result })
     } catch (error) {
-        if (error.error) {
+        if (error === errors.companyNotFound) {
+            res.status(404).json(error)
+        } else if (error.error) {
             res.status(400).json(error)
         } else {
             res.status(500).json({ error })
@@ -50,7 +52,11 @@ exports.get = async (req, res) => {
         res.json({ result })
 
     } catch (error) {
-        if (error.error) {
+        if (error === errors.companyNotFound) {
+            res.status(404).json(error)
+        } else if (error === errors.companyNotFound) {
+            res.status(404).json(error)
+        } else if (error.error) {
             res.status(400).json(error)
         } else {
             res.status(500).json({ error })
@@ -81,7 +87,9 @@ exports.update = async (req, res) => {
 
         res.json({ result })
     } catch (error) {
-        if (error.error) {
+        if (error === errors.companyNotFound) {
+            res.status(404).json(error)
+        } else if (error.error) {
             res.status(400).json(error)
         } else {
             res.status(500).json({ error })
@@ -103,7 +111,9 @@ exports.delete = async (req, res) => {
 
         return res.json({ message: "Success" })
     } catch (error) {
-        if (error.error) {
+        if (error === errors.companyNotFound) {
+            res.status(404).json(error)
+        } else if (error.error) {
             res.status(400).json(error)
         } else {
             res.status(500).json({ error })
@@ -123,7 +133,7 @@ const addAdminSchema = Joi.object({
  */
 exports.addAdmin = async (req, res) => {
     try {
-        const { error } = createSchema.validate(req.body)
+        const { error } = addAdminSchema.validate(req.body)
         if (error && error.details.length > 0) {
             throw { error: error.details[0] }
         }
@@ -142,6 +152,8 @@ exports.addAdmin = async (req, res) => {
     } catch (error) {
         if (error.error) {
             res.status(400).json(error)
+        } else if (error === errors.companyNotFound) {
+            res.status(404).json(error)
         } else {
             res.status(500).json({ error })
         }

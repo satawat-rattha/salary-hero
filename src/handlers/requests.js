@@ -1,8 +1,7 @@
 const Joi = require('joi')
-const employees = require('../controllers/requests')
+const requests = require('../controllers/requests')
 
 const createSchema = Joi.object({
-    employeeId: Joi.number().required(),
     amount: Joi.number().required(),
 })
 
@@ -18,7 +17,10 @@ exports.create = async (req, res) => {
             throw { error: error.details[0] }
         }
 
-        const result = await employees.create(req.body)
+        const result = await requests.create({
+            userId: req.user.id,
+            amount: req.body.amount,
+        })
 
         res.json({ result })
     } catch (error) {
